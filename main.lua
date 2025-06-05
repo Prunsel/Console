@@ -17,6 +17,9 @@ transform_x = love.graphics.getWidth() / scale / 2 - (res / 2)
 love.graphics.setPointSize(scale)
 
 -- button mappings
+buttons = {
+    up
+}
 
 -- built in functions for the 
 enviroment = {
