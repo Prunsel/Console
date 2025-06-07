@@ -1,6 +1,9 @@
 
 -- Fantasy console
 
+-- get libraries
+g3d = require("lib/g3d")
+
 -- remove blur
 love.graphics.setDefaultFilter("nearest", "nearest")
 
@@ -16,13 +19,41 @@ scale = love.graphics.getHeight() / res
 transform_x = love.graphics.getWidth() / scale / 2 - (res / 2)
 love.graphics.setPointSize(scale)
 
--- button mappings
-buttons = {
-    up
+-- button mapping
+button_map = {
+    ["up"] = "up",
+    ["down"] = "down",
+    ["left"] = "left",
+    ["right"] = "right",
+    ["z"] = "z",
+    ["x"] = "x",
 }
+pressed_buttons = {}
 
 -- built in functions for the 
 enviroment = {
+
+    -- \/ ##### Buttons ##### \/
+
+    key_up = "up",
+    key_down = "down",
+    key_left = "left",
+    key_right = "right",
+    key_Z = "z",
+    key_X = "x",
+
+    btn_held = function(button)
+        return love.keyboard.isDown(button)
+    end,
+
+    btn_press = function(button)
+        if pressed_buttons[button] then
+            pressed_buttons[button] = false
+            return true
+        else
+            return false
+        end
+    end,
 
     -- \/ ##### Assets ##### \/
 
@@ -36,7 +67,7 @@ enviroment = {
     end,
 
     sfx_load = function(filepath)
-        return love.audio.newSource(filepath)
+        return love.audio.newSource("cart/"..filepath)
     end,
 
     sfx_play = function(sfx)
@@ -74,6 +105,16 @@ enviroment = {
 
     -- \/ ##### Maths ##### \/
 
+    pi = math.pi,
+
+    random = function(min, max)
+        return love.math.random(min, max)
+    end,
+
+    clamp = function(n, min, max)
+        return math.max(math.min(n, max), min)
+    end,
+
     abs = function(n)
         return math.abs(n)
     end,
@@ -102,7 +143,34 @@ enviroment = {
         return math.tan(n)
     end,
 
-    -- \/ ##### Shapes ##### \/
+    -- \/ ##### Arrays ##### \/
+
+    pairs = function(n)
+        return pairs(n)
+    end,
+
+    array_add = function(array, n)
+        table.insert(array, #array + 1, n)
+    end,
+
+    array_delete = function(array, n)
+        table.remove(array, n)
+    end,
+
+    -- \/ ##### 2D Collision ##### \/
+
+    point_in_rectangle = function(x, y, x2, y2, w, h)
+        return x >= x2 and x <= x2 + w and y >= y2 and y <= y2 + h
+    end,
+
+    -- \/ ##### Text ##### \/
+
+    print = function(text, x, y, r, sx, sy, col)
+        if col then love.graphics.setColor(col) end
+        love.graphics.print(text, x, y, r, sx, sy)
+    end,
+
+    -- \/ ##### 2D Shapes ##### \/
 
     pixel = function(x, y, col)
         if col then love.graphics.setColor(col) end
@@ -121,7 +189,7 @@ enviroment = {
 
     line = function(x1, y1, x2, y2, col)
         if col then love.graphics.setColor(col) end
-        
+        love.graphics.line(x1,y1, x2,y2)
     end,
 
     triangle = function(x1, y1, x2, y2, x3, y3, col)
@@ -142,7 +210,24 @@ enviroment = {
     circle_fill = function(x, y, r, col)
         if col then love.graphics.setColor(col) end
         love.graphics.circle("fill", x, y, r)
-    end
+    end,
+
+    -- \/ ##### 3D Shapes ##### \/
+
+    model_load = function(filepath, texturepath)
+        return g3d.newModel("cart/"..filepath, "cart/"..texturepath)
+    end,
+
+    model_draw = function(model, x, y, z, rx, ry, rz, sx, sy, sz)
+        if sx then 
+            model:setTransform({x,y,z}, {rx,ry,rz}, {sx,sy,sz})
+        elseif rx then
+            model:setTransform({x,y,z}, {rx,ry,rz})
+        else
+            model:setTransform({x,y,z})
+        end
+        model:draw()
+    end,
 
 }
 
@@ -205,4 +290,13 @@ function love.draw()
     -- draw canvas
     love.graphics.draw(canvas, 0, 0)
 
+end
+
+-- keypressed
+function love.keypressed(key)
+    for id, button in pairs(button_map) do
+        if key == button then
+            pressed_buttons[id] = true
+        end
+    end
 end
