@@ -127,7 +127,7 @@ Loads the font at the `filepath` like `sprite_load` and returns a `font`
 ### 2D Collision
 Useful functions for 2D Collision
 
-point_in_rectangle( x, y, x2, y2, width, height)
+`point_in_rectangle( x, y, x2, y2, width, height)`
 Returns `true` or `false` depending in if the point `x y` is in the rectangle.
 
 ### 3D Collison
@@ -138,6 +138,7 @@ Returns `true` or `false` depending if the point `x y z ` is in the cuboid.
 
 ### 2D Shapes
 **NOTE:** Colour is an optional argument
+
 **NOTE:** These functions are also self explanatory.
 
 `pixel(x, y, colour)`
