@@ -121,4 +121,53 @@ Returns a random value from an `array`.
 `print(text, x, y, rotation, scale_x, scale_y, font, colour)`
 Prints `text` at the given position. `font` and `colour` are optional.
 
+`font_load( filepath )`
+Loads the font at the `filepath` like `sprite_load` and returns a `font`
+
+### 2D Collision
+Useful functions for 2D Collision
+
+point_in_rectangle( x, y, x2, y2, width, height)
+Returns `true` or `false` depending in if the point `x y` is in the rectangle.
+
+### 3D Collison
+Ditto for 3D
+
+`point_in_cuboid(x, y, z, x2, y2, z2, width, hight, depth)`
+Returns `true` or `false` depending if the point `x y z ` is in the cuboid.
+
+### 2D Shapes
+**NOTE:** Colour is an optional argument
+**NOTE:** These functions are also self explanatory.
+
+`pixel(x, y, colour)`
+
+`rectangle(x, y, width, height, colour)`
+
+`rectangle_fill(x, y, width, hight, colour)`
+
+`line(x1, y1, x2, y2, colour)`
+
+`triangle(x1, y1, x2, y2, x3, y3, colour)`
+
+`triangle_fill(x1, y1, x2, y2, x3, y3, colour)`
+
+`circle(x, y, radius, colour)`
+
+`circle_fill(x, y, radius, colour)`
+
+## 3D Shapes + Models
+
+`model_load( filepath, texture_path)`
+Returns a 3D model.
+
+`model_draw(model, x, y, z, rotate_x, rotate_y, rotate_z, scale_x, scale_y, scale_z)`
+Draws a 3D model.
+
+
+
+
+
+
+
 
