@@ -69,6 +69,56 @@ A table that can output several preset colours:
 - `grey`
 - `dark_grey`
 - `black`
+
 E.g. pixel(10, 10, colors.blue)
+
+`color(r, g, b, a)`
+Returns a colour from the values, from `1` to `16`
+
+`color_set(r, g, b, a)`/`(col)`
+Sets the drawing colour from a table or the values.
+
+### Maths
+**NOTE:**These functions/constants don't really need explanations. If you dont 
+know what these do then look them up, they are very simple. Also there is 
+probably a lot missing here.
+
+`pi`
+
+`random(min, max)`
+
+`clamp(value, min, max)`
+
+`abs( value )`
+
+`sqrt( value )`
+
+`floor( value )`
+
+`ceil( value )`
+
+`sin( value )`
+
+`cos( value )`
+
+`tan( value )`
+
+### Array functions
+
+`pairs( array )`
+Used for `for i, this in pairs(array)`
+
+`array_add( array, value )`
+Adds `value` to the end of `array`
+
+`array_delete( array, index)`
+Removes a value from an `array` at the `index`
+
+`array_random( array )`
+Returns a random value from an `array`.
+
+### Text
+`print(text, x, y, rotation, scale_x, scale_y, font, colour)`
+Prints `text` at the given position. `font` and `colour` are optional.
 
 
